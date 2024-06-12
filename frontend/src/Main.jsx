@@ -1,27 +1,44 @@
 import React from 'react'
-import { Breadcrumb, Layout, Menu, theme } from 'antd'
+import { Breadcrumb, Flex, Layout, Menu, theme, Typography } from 'antd'
+import { FaProjectDiagram } from 'react-icons/fa'
+import Projects from './projects/Projects'
+
 const { Header, Content, Footer } = Layout
-const items = new Array(15).fill(null).map((_, index) => ({
-  key: index + 1,
-  label: `nav ${index + 1}`,
-}))
+const { Title, Text } = Typography
+
+const items = [
+  {
+    key: '1',
+    label: 'Proyectos',
+  },
+]
 const Main = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
   return (
-    <Layout style={{height: '100%'}}>
+    <Layout style={{ height: 'calc(100vh - 21px)' }}>
       <Header
         style={{
           display: 'flex',
           alignItems: 'center',
         }}
       >
-        <div className="demo-logo" />
+        <Flex style={{ marginRight: '16px', cursor: 'pointer' }} gap={16}>
+          <FaProjectDiagram size={50} color="white" />
+          <Flex vertical style={{ marginRight: '16px' }}>
+            <Title level={3} style={{ color: 'white', margin: 0 }}>
+              Proyectos IPD
+            </Title>
+            <Text style={{ color: 'white' }}>
+              Sistema de gestión de proyectos
+            </Text>
+          </Flex>
+        </Flex>
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['2']}
+          defaultSelectedKeys={['1']}
           items={items}
           style={{
             flex: 1,
@@ -32,7 +49,7 @@ const Main = () => {
       <Content
         style={{
           padding: '0 48px',
-          height: '100%'
+          height: '100%',
         }}
       >
         <Breadcrumb
@@ -40,9 +57,8 @@ const Main = () => {
             margin: '16px 0',
           }}
         >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
+          <Breadcrumb.Item>Inicio</Breadcrumb.Item>
+          <Breadcrumb.Item>Proyectos</Breadcrumb.Item>
         </Breadcrumb>
         <div
           style={{
@@ -50,10 +66,10 @@ const Main = () => {
             minHeight: 280,
             padding: 24,
             borderRadius: borderRadiusLG,
-            height: '100%'
+            height: '100%',
           }}
         >
-          Content
+          <Projects />
         </div>
       </Content>
       <Footer
@@ -61,7 +77,7 @@ const Main = () => {
           textAlign: 'center',
         }}
       >
-        Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        Gestor Proyectos ©{new Date().getFullYear()} Created by IPD
       </Footer>
     </Layout>
   )

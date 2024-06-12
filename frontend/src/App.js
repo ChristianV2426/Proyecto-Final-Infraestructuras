@@ -5,7 +5,7 @@ import Main from './Main'
 function App() {
   return (
     <RootProvider>
-      <Main/>
+      <Main />
     </RootProvider>
   )
 }
