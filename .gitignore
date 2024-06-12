@@ -1,0 +1,27 @@
+# Entorno virtual (venv)
+venv/
+*.pyc
+__pycache__/
+
+# Archivos de entorno
+.env
+
+# Directorio de archivos estáticos generados
+/staticfiles/
+
+# Archivos de migraciones de Django
+**/migrations/
+
+# Archivos de base de datos SQLite
+*.sqlite3
+
+# Archivos de logs y cache de Django
+*.log
+.cache/
+
+# Carpeta de node_modules del frontend de React
+node_modules/
+
+# Archivos compilados y generados por herramientas de compilación de JavaScript
+/build/
+/dist/
