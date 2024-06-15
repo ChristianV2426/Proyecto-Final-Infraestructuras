@@ -39,3 +39,9 @@ venv/
 
 # PDF
 *.pdf
+
+# Javascript, React, Node
+/staticfiles/
+node_modules/
+/build/
+/dist/
