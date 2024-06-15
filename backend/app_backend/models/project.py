@@ -17,9 +17,6 @@ class Project(models.Model):
         verbose_name = 'Proyecto'
         verbose_name_plural = 'Proyectos'
         ordering = ['id_project']
-    
-    # def get_project_name(self):
-    #     return self.project_name
 
     def save(self, *args, **kwargs):
         if self.end_date is not None and self.start_date > self.end_date:
@@ -45,7 +42,7 @@ class Project(models.Model):
         logger.debug(
             f'Eliminando el proyecto con ID {self.id_project}\n'
             f'(Nombre: {self.project_name})\n\n')
-        
+
         for task in self.task_set.all():
             task.delete()
 

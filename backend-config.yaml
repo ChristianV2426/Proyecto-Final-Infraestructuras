@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: backend-config
+
+data:
+  DEBUG: 'True'
+
+  DATABASE_NAME: db_infraestructuras
+
+  DATABASE_HOST: database-service
+
