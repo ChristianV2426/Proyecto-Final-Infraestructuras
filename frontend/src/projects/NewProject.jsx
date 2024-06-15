@@ -5,6 +5,7 @@ import { IoAdd } from 'react-icons/io5'
 import styled from 'styled-components'
 
 const StyledButton = styled(Flex)`
+  border-radius: 12px;
   border: dashed 2px #536878;
   justify-content: center;
   align-items: center;
@@ -12,10 +13,12 @@ const StyledButton = styled(Flex)`
   font-size: 16px;
   color: #536878;
   cursor: pointer;
+  width: 260px;
+  height: 260px;
   transition: all 0.6s ease;
   &:hover {
     background-color: #f0f0f0;
-    transform: translateY(-3px) scale(1.03);
+    transform: translateY(-3px) scale(1.01);
   }
 `
 

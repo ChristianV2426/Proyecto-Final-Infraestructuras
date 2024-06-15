@@ -1,11 +1,11 @@
 import './App.css'
 import RootProvider from './providers/RootProvider'
-import Main from './Main'
+import RouterRoot from './RouterRoot'
 
 function App() {
   return (
     <RootProvider>
-      <Main />
+      <RouterRoot />
     </RootProvider>
   )
 }

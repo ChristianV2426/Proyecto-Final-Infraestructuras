@@ -1,10 +1,11 @@
 import React from 'react'
 import Modal from 'antd/lib/modal/Modal'
 import { Form, InputNumber, Tag, Button, Input } from 'antd'
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
 
 const requiredMark = (labek, { required }) => (
   <>
-    {required && <Tag color="error">Required</Tag>}
+    {required && <Tag color="error">Requerido</Tag>}
     {labek}
   </>
 )
@@ -31,6 +32,7 @@ const FormProject = ({ open, onFinish, onClose, isLoading }) => {
       footer={(_) => (
         <>
           <Button key="back" onClick={onClose}>
+            <CloseCircleOutlined />
             Cancelar
           </Button>
           <Button
@@ -38,6 +40,7 @@ const FormProject = ({ open, onFinish, onClose, isLoading }) => {
             loading={isLoading}
             onClick={() => handleBuy(form, onFinish)}
           >
+            <CheckCircleOutlined />
             Crear
           </Button>
         </>

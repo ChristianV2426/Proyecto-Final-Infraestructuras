@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Flex } from 'antd'
+import styled from 'styled-components'
 import NewProject from './NewProject'
 import CreatedProject from './CreatedProject'
 import { getProjects, postProject } from '../api/projects'
 import FormProject from './FormProject'
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+  width: 100%;
+  height: 100%;
+`
 
 const Projects = () => {
   const [projects, setProjects] = useState([])
@@ -41,7 +49,7 @@ const Projects = () => {
   }, [])
 
   return (
-    <Flex gap={24}>
+    <GridContainer>
       {projects?.map((project) => (
         <CreatedProject key={project.id} project={project} />
       ))}
@@ -52,7 +60,7 @@ const Projects = () => {
         onFinish={onFinish}
         isLoading={loading}
       />
-    </Flex>
+    </GridContainer>
   )
 }
 

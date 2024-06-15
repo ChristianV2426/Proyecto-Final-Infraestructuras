@@ -9,6 +9,15 @@ export const getProjects = async () => {
   }
 }
 
+export const getProject = async (id) => {
+  try {
+    const response = await apiBase.get(`projects/${id}/`)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export const postProject = async (project) => {
   try {
     const response = await apiBase.post('projects/', project)
