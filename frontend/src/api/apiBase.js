@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiURL =
-  'http://connection-service:8000'
+  window.location.origin + '/api/';
 
 const apiBase = axios.create({
   baseURL: apiURL,

@@ -21,17 +21,10 @@ spec:
       containers:
       - name: frontend
 
-        image: christianv2426/frontend-infraestructuras
+        image: herreran/frontend-infraestructuras
 
         ports:
         - containerPort: 80
-
-        env:
-        - name: REACT_APP_API_BASE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: frontend-config
-              key: REACT_APP_API_BASE_URL
 
 ---
 
