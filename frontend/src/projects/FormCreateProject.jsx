@@ -1,7 +1,8 @@
 import React from 'react'
 import Modal from 'antd/lib/modal/Modal'
-import { Form, InputNumber, Tag, Button, Input } from 'antd'
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
+import { Form, Tag, Button, Input } from 'antd'
+import { MdSave } from 'react-icons/md'
+import { MdCancel } from 'react-icons/md'
 
 const requiredMark = (labek, { required }) => (
   <>
@@ -10,14 +11,14 @@ const requiredMark = (labek, { required }) => (
   </>
 )
 
-const handleBuy = (form, onFinish) => {
+const handleCreateProject = (form, onFinish) => {
   form.validateFields().then((values) => {
     onFinish(values)
     form.resetFields()
   })
 }
 
-const FormProject = ({ open, onFinish, onClose, isLoading }) => {
+const FormCreateProject = ({ open, onFinish, onClose, isLoading }) => {
   const [form] = Form.useForm()
 
   return (
@@ -25,23 +26,25 @@ const FormProject = ({ open, onFinish, onClose, isLoading }) => {
       title="Nuevo Proyecto"
       open={open}
       onOk={() => {
-        handleBuy(form, onFinish)
+        handleCreateProject(form, onFinish)
       }}
       onCancel={onClose}
       centered
       footer={(_) => (
         <>
-          <Button key="back" onClick={onClose}>
-            <CloseCircleOutlined />
-            Cancelar
-          </Button>
           <Button
             key="submit"
             loading={isLoading}
-            onClick={() => handleBuy(form, onFinish)}
+            onClick={() => handleCreateProject(form, onFinish)}
+            type="primary"
+            ghost
           >
-            <CheckCircleOutlined />
+            <MdSave size={20} />
             Crear
+          </Button>
+          <Button key="back" onClick={onClose} danger ghost>
+            <MdCancel size={20} />
+            Cancelar
           </Button>
         </>
       )}
@@ -52,7 +55,7 @@ const FormProject = ({ open, onFinish, onClose, isLoading }) => {
           project_name: '',
           project_description: '',
           start_date: '',
-          endDate: '',
+          end_date: '',
         }}
         requiredMark={requiredMark}
         size="large"
@@ -108,4 +111,4 @@ const FormProject = ({ open, onFinish, onClose, isLoading }) => {
   )
 }
 
-export default FormProject
+export default FormCreateProject

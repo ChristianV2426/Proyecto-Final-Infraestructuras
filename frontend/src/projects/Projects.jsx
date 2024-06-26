@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import NewProject from './NewProject'
 import CreatedProject from './CreatedProject'
 import { getProjects, postProject } from '../api/projects'
-import FormProject from './FormProject'
+import FormCreateProject from './FormCreateProject'
+
+import ProjectsData from '../data/projects.json'
 
 const GridContainer = styled.div`
   display: grid;
@@ -48,13 +50,17 @@ const Projects = () => {
     fetchData()
   }, [])
 
+  // useEffect(() => {
+  //   setProjects(ProjectsData)
+  // }, [])
+
   return (
     <GridContainer>
       {projects?.map((project) => (
         <CreatedProject key={project.id} project={project} />
       ))}
       <NewProject onOpen={onOpen} />
-      <FormProject
+      <FormCreateProject
         open={open}
         onClose={onClose}
         onFinish={onFinish}

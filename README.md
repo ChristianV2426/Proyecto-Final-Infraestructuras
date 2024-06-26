@@ -27,14 +27,20 @@ cd Proyecto-Final-Infraestructuras
 2. Desplegar las diferentes configuraciones y servicios de Kubernetes
 
 ```bash
-kubectl apply -f backend-configmap.yaml \
+kubectl apply -f backend-config.yaml \
 -f backend-secrets.yaml \
 -f database-volume.yaml \
 -f database-deployment.yaml \
 -f backend-deployment.yaml \
--f backend-service.yaml \
--f frontend-configmap.yaml
+-f frontend-deployment.yaml
 ```
+
+- O en una sola linea de comandos
+
+```bash
+kubectl apply -f backend-config.yaml -f backend-secrets.yaml -f database-volume.yaml -f database-deployment.yaml -f backend-deployment.yaml -f frontend-deployment.yaml
+```
+
 
 1. Obtener la dirección IP del servicio de frontend o backend, según se desee, y empezar a interactuar con la aplicación
 

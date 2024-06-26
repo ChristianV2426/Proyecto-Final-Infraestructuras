@@ -1,6 +1,5 @@
 import React from 'react'
 import { Flex, Typography } from 'antd'
-import { PiProjectorScreenChartFill } from 'react-icons/pi'
 import { IoAdd } from 'react-icons/io5'
 import styled from 'styled-components'
 

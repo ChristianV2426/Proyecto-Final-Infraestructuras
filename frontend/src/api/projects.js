@@ -26,3 +26,21 @@ export const postProject = async (project) => {
     console.error(error)
   }
 }
+
+export const putProject = async (id, project) => {
+  try {
+    const response = await apiBase.put(`projects/${id}/`, project)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const deleteProject = async (id) => {
+  try {
+    const response = await apiBase.delete(`projects/${id}/`)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
