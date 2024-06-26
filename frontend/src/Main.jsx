@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Breadcrumb, Flex, Layout, Menu, theme, Typography } from 'antd'
+import { Breadcrumb, Flex, Layout, Menu, theme, Typography, Image } from 'antd'
 import { FaProjectDiagram } from 'react-icons/fa'
 import { Outlet } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { RxDoubleArrowLeft } from 'react-icons/rx'
+import Logo from './logo.png'
 
 const { Header, Content } = Layout
 const { Title, Text } = Typography
@@ -110,7 +111,7 @@ const Main = () => {
         }}
       >
         <Flex style={{ marginRight: '16px', cursor: 'pointer' }} gap={16}>
-          <FaProjectDiagram size={50} color="white" />
+          <img width={50} src={Logo} alt="Proyectos IPD" />
           <Flex vertical style={{ marginRight: '16px' }}>
             <Title level={3} style={{ color: 'white', margin: 0 }}>
               Proyectos IPD

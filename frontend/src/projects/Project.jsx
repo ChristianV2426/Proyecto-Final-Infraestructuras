@@ -111,7 +111,7 @@ const Project = () => {
         )}
       </Sidebar>
       <Content>
-        <Tasks tasks={tasks} />
+        <Tasks tasks={tasks} setTasks={setTasks} idProject={id} />
       </Content>
     </Container>
   )

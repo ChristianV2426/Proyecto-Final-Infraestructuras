@@ -5,6 +5,7 @@ import { MdEdit } from 'react-icons/md'
 import { IoMdTrash } from 'react-icons/io'
 import { MdSaveAs } from 'react-icons/md'
 import { MdCancel } from 'react-icons/md'
+import { getTasks, postTask, putTask, deleteTask } from '../api/tasks'
 
 import FormTask from './FormTask'
 
@@ -51,7 +52,17 @@ const editableCell = ({
   )
 }
 
-const Tasks = ({ tasks }) => {
+const handleEditTask = (id, form, onEdit) => {
+  form.validateFields().then((values) => {
+    onEdit(id, values)
+  })
+}
+
+const handleDeleteTask = (id, onDelete) => {
+  onDelete(id)
+}
+
+const Tasks = ({ tasks, setTasks, idProject }) => {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -86,6 +97,66 @@ const Tasks = ({ tasks }) => {
 
   const onClose = () => setOpen(false)
   const onOpen = () => setOpen(true)
+
+  const onCreate = async (values) => {
+    const _values = {
+      ...values,
+      id_project: idProject,
+      end_date: values.end_date || null,
+    }
+
+    setLoading(true)
+    try {
+      await postTask(_values)
+      const data = await getTasks()
+      setTasks(data)
+    } catch (error) {
+      console.error('Error creating project:', error)
+    } finally {
+      setLoading(false)
+      setOpen(false)
+    }
+  }
+
+  const onEdit = async (id, values) => {
+    const _values = {
+      ...values,
+      id_project: idProject,
+      end_date: values.end_date || null,
+    }
+
+    setLoading(true)
+    try {
+      const editedTask = await putTask(id, _values)
+      const newData = [...tasks]
+      const index = newData.findIndex(
+        (item) => editedTask.id_task === item.id_task
+      )
+      if (index > -1) {
+        const item = newData[index]
+        newData.splice(index, 1, { ...item, ...editedTask })
+        setTasks(newData)
+      }
+    } catch (error) {
+      console.error('Error creating project:', error)
+    } finally {
+      setLoading(false)
+      setEditingKey('')
+    }
+  }
+
+  const onDelete = async (id) => {
+    setLoading(true)
+    try {
+      await deleteTask(id)
+      const newData = tasks.filter((item) => item.id_task !== id)
+      setTasks(newData)
+    } catch (error) {
+      console.error('Error deleting project:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const columns = [
     {
@@ -164,6 +235,7 @@ const Tasks = ({ tasks }) => {
                       color: editingKey === '' ? '#ff4d4f ' : '#FFB3B4',
                     }}
                     disabled={editingKey !== ''}
+                    onClick={() => handleDeleteTask(record.id_task, onDelete)}
                   >
                     <IoMdTrash size={20} />
                   </Button>
@@ -175,7 +247,7 @@ const Tasks = ({ tasks }) => {
                   <Button
                     type="text"
                     style={{ color: isSubmitting ? '#1677ff' : '#AFCFFF' }}
-                    onClick={() => {}}
+                    onClick={() => handleEditTask(record.id_task, form, onEdit)}
                     disabled={!isSubmitting}
                   >
                     <MdSaveAs size={20} />
@@ -244,7 +316,12 @@ const Tasks = ({ tasks }) => {
           loading={loading}
         />
       </Form>
-      <FormTask open={open} onClose={onClose} />
+      <FormTask
+        open={open}
+        onClose={onClose}
+        onCreate={onCreate}
+        isLoading={loading}
+      />
     </>
   )
 }

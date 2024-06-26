@@ -24,9 +24,14 @@ const Projects = () => {
   const onOpen = () => setOpen(true)
 
   const onFinish = async (values) => {
+    const _values = {
+      ...values,
+      end_date: values.end_date || null,
+    }
+
     setLoading(true)
     try {
-      await postProject(values)
+      await postProject(_values)
       const data = await getProjects()
       setProjects(data)
     } catch (error) {

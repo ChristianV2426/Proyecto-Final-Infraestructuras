@@ -44,12 +44,3 @@ export const deleteTask = async (id) => {
     console.error(error)
   }
 }
-
-export const getTasksByProject = async (id) => {
-  try {
-    const response = await apiBase.get(`tasks/project/${id}/`)
-    return response.data
-  } catch (error) {
-    console.error(error)
-  }
-}

@@ -4,10 +4,10 @@ import { Form, Tag, Button, Input } from 'antd'
 import { MdSave } from 'react-icons/md'
 import { MdCancel } from 'react-icons/md'
 
-const requiredMark = (labek, { required }) => (
+const requiredMark = (label, { required }) => (
   <>
     {required && <Tag color="error">Requerido</Tag>}
-    {labek}
+    {label}
   </>
 )
 
@@ -18,14 +18,7 @@ const handleCreateTask = (form, onCreate) => {
   })
 }
 
-const handleEditTask = (form, onEdit) => {
-  form.validateFields().then((values) => {
-    onEdit(values)
-    form.resetFields()
-  })
-}
-
-const FormTask = ({ open, onCreate, onClose, isLoading, task }) => {
+const FormTask = ({ open, onCreate, onClose, isLoading }) => {
   const [form] = Form.useForm()
 
   return (
