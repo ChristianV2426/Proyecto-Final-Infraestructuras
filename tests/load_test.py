@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Tasks(SequentialTaskSet):
     @task
-    def create_users(self):
+    def create_projects(self):
         data = {
             "project_name": f"Proyecto {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             "project_description": "",
@@ -14,7 +14,7 @@ class Tasks(SequentialTaskSet):
         self.client.post("api/projects/", json=data)
 
     @task
-    def get_users(self):
+    def get_projects(self):
         self.client.get("api/projects/")
 
 
