@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Button, Tag, Tooltip, Input, Form } from 'antd'
+import { Table, Button, Tag, Tooltip, Input, Form, message } from 'antd'
 import { IoAdd } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
 import { IoMdTrash } from 'react-icons/io'
@@ -65,12 +65,14 @@ const handleDeleteTask = (id, onDelete) => {
 const Tasks = ({ tasks, setTasks, idProject }) => {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const [messageApi, contextHolder] = message.useMessage()
 
   const [form] = Form.useForm()
   const [editingKey, setEditingKey] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const values = Form.useWatch([], form)
+
   useEffect(() => {
     form
       .validateFields()
@@ -81,6 +83,14 @@ const Tasks = ({ tasks, setTasks, idProject }) => {
         setIsSubmitting(false)
       })
   }, [form, values])
+
+  const showError = (msg) => {
+    messageApi.open({
+      type: 'error',
+      content: msg,
+      duration: 3,
+    })
+  }
 
   const isEditing = (record) => record.id_task === editingKey
 
@@ -111,6 +121,11 @@ const Tasks = ({ tasks, setTasks, idProject }) => {
       const data = await getTasks()
       setTasks(data)
     } catch (error) {
+      error?.response?.status == 400 &&
+        showError(
+          error?.response?.data?.task_name?.[0] ||
+            'Ocurrió un error creando el proyecto'
+        )
       console.error('Error creating project:', error)
     } finally {
       setLoading(false)
@@ -138,6 +153,11 @@ const Tasks = ({ tasks, setTasks, idProject }) => {
         setTasks(newData)
       }
     } catch (error) {
+      error?.response?.status == 400 &&
+        showError(
+          error?.response?.data?.task_name?.[0] ||
+            'Ocurrió un error creando el proyecto'
+        )
       console.error('Error creating project:', error)
     } finally {
       setLoading(false)

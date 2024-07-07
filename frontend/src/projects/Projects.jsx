@@ -4,8 +4,7 @@ import NewProject from './NewProject'
 import CreatedProject from './CreatedProject'
 import { getProjects, postProject } from '../api/projects'
 import FormCreateProject from './FormCreateProject'
-
-import ProjectsData from '../data/projects.json'
+import { message } from 'antd'
 
 const GridContainer = styled.div`
   display: grid;
@@ -19,9 +18,18 @@ const Projects = () => {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const [messageApi, contextHolder] = message.useMessage()
 
   const onClose = () => setOpen(false)
   const onOpen = () => setOpen(true)
+
+  const showError = (msg) => {
+    messageApi.open({
+      type: 'error',
+      content: msg,
+      duration: 3,
+    })
+  }
 
   const onFinish = async (values) => {
     const _values = {
@@ -35,6 +43,11 @@ const Projects = () => {
       const data = await getProjects()
       setProjects(data)
     } catch (error) {
+      error?.response?.status == 400 &&
+        showError(
+          error?.response?.data?.project_name?.[0] ||
+            'Ocurrió un error creando el proyecto'
+        )
       console.error('Error creating project:', error)
     } finally {
       setLoading(false)
@@ -55,12 +68,9 @@ const Projects = () => {
     fetchData()
   }, [])
 
-  // useEffect(() => {
-  //   setProjects(ProjectsData)
-  // }, [])
-
   return (
     <GridContainer>
+      {contextHolder}
       {projects?.map((project) => (
         <CreatedProject key={project.id} project={project} />
       ))}

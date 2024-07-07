@@ -5,7 +5,7 @@ export const getProjects = async () => {
     const response = await apiBase.get('projects/')
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -14,7 +14,7 @@ export const getProject = async (id) => {
     const response = await apiBase.get(`projects/${id}/`)
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -23,7 +23,7 @@ export const postProject = async (project) => {
     const response = await apiBase.post('projects/', project)
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -32,7 +32,7 @@ export const putProject = async (id, project) => {
     const response = await apiBase.put(`projects/${id}/`, project)
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -41,6 +41,6 @@ export const deleteProject = async (id) => {
     const response = await apiBase.delete(`projects/${id}/`)
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }

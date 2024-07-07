@@ -7,9 +7,7 @@ import { PiProjectorScreenChartFill } from 'react-icons/pi'
 import FormEditProject from './FormEditProject'
 import { useNavigate } from 'react-router-dom'
 import Tasks from '../tasks/Tasks'
-
-import ProjectsData from '../data/projects.json'
-import TasksData from '../data/tasks.json'
+import { message } from 'antd'
 
 const Container = styled.div`
   display: flex;
@@ -44,8 +42,17 @@ const Project = () => {
   const [project, setProject] = useState(null)
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
+  const [messageApi, contextHolder] = message.useMessage()
 
   const navigate = useNavigate()
+
+  const showError = (msg) => {
+    messageApi.open({
+      type: 'error',
+      content: msg,
+      duration: 3,
+    })
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,17 +75,16 @@ const Project = () => {
     fetchData()
   }, [id])
 
-  // useEffect(() => {
-  //   const projectData = ProjectsData.find((p) => p.id_project == id)
-  //   setProject(projectData)
-  //   setLoading(false)
-  // }, [id])
-
   const onEdit = async (values) => {
     try {
       const projectData = await putProject(id, values)
       setProject(projectData)
     } catch (error) {
+      error?.response?.status == 400 &&
+        showError(
+          error?.response?.data?.project_name?.[0] ||
+            'Ocurrió un error creando el proyecto'
+        )
       console.error('Error creating project:', error)
     }
   }

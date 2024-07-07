@@ -5,7 +5,7 @@ export const getTasks = async () => {
     const response = await apiBase.get('tasks/')
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -14,7 +14,7 @@ export const getTask = async (id) => {
     const response = await apiBase.get(`tasks/${id}/`)
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -23,7 +23,7 @@ export const postTask = async (task) => {
     const response = await apiBase.post('tasks/', task)
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -32,7 +32,7 @@ export const putTask = async (id, task) => {
     const response = await apiBase.put(`tasks/${id}/`, task)
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
 
@@ -41,6 +41,6 @@ export const deleteTask = async (id) => {
     const response = await apiBase.delete(`tasks/${id}/`)
     return response.data
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }
